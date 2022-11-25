@@ -3,7 +3,6 @@ import axios from 'axios';
 import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import firebaseAuthInstance from '../../services/firebase/auth';
-import { useSearchParams } from 'react-router-dom';
 
 export const FirebaseAuthContext = React.createContext();
 
@@ -44,6 +43,10 @@ const FirebaseAuthContextProvider = ({ children }) => {
         return;
       }
 
+      if (!currentUser.displayName) {
+        return;
+      }
+
       const registrationRoleString = localStorage.getItem('registrationRole');
       const registrationRole = JSON.parse(registrationRoleString || '{}');
       console.log('Firebase User:', currentUser);
@@ -70,6 +73,23 @@ const FirebaseAuthContextProvider = ({ children }) => {
         localStorage.clear();
       } catch (err) {
         console.info('User Not Updated/Inserted.');
+        return;
+      }
+
+      try {
+        console.log('Get Access Token');
+        await axios.get(
+          `${import.meta.env.VITE_puranBoiServer}/users/grant-token/${
+            currentUser.uid
+          }`,
+          {
+            withCredentials: true,
+          }
+        );
+        console.info('Got Token.');
+      } catch (err) {
+        console.info('Cannot got Token');
+        return;
       }
     };
 
