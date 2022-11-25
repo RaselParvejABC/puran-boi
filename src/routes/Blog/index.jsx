@@ -3,8 +3,8 @@ import { Card } from 'react-daisyui';
 
 const Blog = () => {
   return (
-    <>
-      <Card className="border-2 border-sky-600 mx-3 my-3">
+    <div className="container mx-auto px-8">
+      <Card className="border-2 border-sky-200 mx-3 my-3">
         <Card.Body>
           <Card.Title tag="h2">
             What are the different ways to manage a state in a React
@@ -33,7 +33,7 @@ const Blog = () => {
           </ul>
         </Card.Body>
       </Card>
-      <Card className="border-2 border-sky-600 mx-3 my-3">
+      <Card className="border-2 border-sky-200 mx-3 my-3">
         <Card.Body>
           <Card.Title tag="h2">
             How does Prototypical Inheritance work?
@@ -55,7 +55,7 @@ const Blog = () => {
           </p>
         </Card.Body>
       </Card>
-      <Card className="border-2 border-sky-600 mx-3 my-3">
+      <Card className="border-2 border-sky-200 mx-3 my-3">
         <Card.Body>
           <Card.Title tag="h2">
             What is a unit test? Why should we write unit tests?
@@ -73,7 +73,7 @@ const Blog = () => {
           </p>
         </Card.Body>
       </Card>
-      <Card className="border-2 border-sky-600 mx-3 my-3">
+      <Card className="border-2 border-sky-200 mx-3 my-3">
         <Card.Body>
           <Card.Title tag="h2">
             What are the differences among React, Angular and Vue?
@@ -93,7 +93,7 @@ const Blog = () => {
           </p>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 };
 
