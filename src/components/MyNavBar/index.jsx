@@ -85,7 +85,7 @@ const MyNavBar = () => {
   };
 
   return (
-    <div className="container px-6 mx-auto">
+    <div className="container px-3 lg:px-5 mx-auto">
       <Navbar className="navbar flex items-center justify-center gap-2">
         <Navbar.Start>
           <Dropdown
