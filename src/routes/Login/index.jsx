@@ -133,9 +133,7 @@ const Login = () => {
           )}
 
           {(passwordLoginLoading || googleLoginLoading) && (
-            <div className="flex flex-row justify-center mt-6">
-              <SpinnerDotted size="70" />
-            </div>
+            <MySpinnerDottedOnCenter size={70} />
           )}
           <div className="mt-4 text-grey-600">
             Want to Register a Password Account with your Email?{' '}

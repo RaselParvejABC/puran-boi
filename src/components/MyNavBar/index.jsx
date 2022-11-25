@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navbar, Dropdown, Menu, Button } from 'react-daisyui';
 import { FaHamburger } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -13,8 +13,13 @@ const MyNavBar = () => {
     currentUserLoadingError,
   } = useContext(FirebaseAuthContext);
 
+  const [logOutError, setLogOutError] = useState(false);
+
   const logOut = async () => {
-    // const succeded = await firebaseLogOut();
+    const succeeded = await firebaseLogOut();
+    if (!succeeded === false) {
+      setLogOutError(true);
+    }
   };
 
   return (
@@ -78,6 +83,14 @@ const MyNavBar = () => {
           </div>
         </Navbar.End>
       </Navbar>
+      {logOutError && (
+        <InformDialog
+          title="Log Out Failed!"
+          message="PuranBoi cannot Retrieve Current User State."
+          isOpen={logOutError}
+          onClose={() => setLogOutError(false)}
+        />
+      )}
     </div>
   );
 };
