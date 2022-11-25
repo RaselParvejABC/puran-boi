@@ -18,7 +18,7 @@ const MyNavBar = () => {
 
   const logOut = async () => {
     const succeeded = await firebaseLogOut();
-    if (!succeeded === false) {
+    if (!succeeded) {
       setLogOutError(true);
     }
   };

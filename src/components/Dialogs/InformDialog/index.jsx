@@ -1,4 +1,5 @@
 import React from 'react';
+import { Modal, Button } from 'react-daisyui';
 
 const InformDialog = ({ title, message, onClose, isOpen }) => {
   return (
