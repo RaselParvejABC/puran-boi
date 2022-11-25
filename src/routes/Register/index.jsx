@@ -14,6 +14,8 @@ const Register = () => {
     currentUser,
     currentUserLoading,
     currentUserLoadingError,
+    userDataChanged,
+    setUserDataChanged,
   } = useContext(FirebaseAuthContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -114,6 +116,7 @@ const Register = () => {
 
     createUserWithEmailAndPassword(email, password)
       .then(user => {
+        console.log('Hello');
         localStorage.setItem(
           'registrationRole',
           JSON.stringify({
@@ -121,7 +124,9 @@ const Register = () => {
             askedRole: wantToBeSeller ? 'seller' : 'buyer',
           })
         );
+        console.log('Hello');
         updateProfile({ photoURL, displayName: name }).then(() => {
+          setUserDataChanged(!userDataChanged);
           setProfileUpdated(true);
         });
       })
