@@ -11,7 +11,7 @@ const MyFooter = () => {
       </div>
 
       <div>
-        <Footer.Title>Services</Footer.Title>
+        <Footer.Title>Products</Footer.Title>
         <p className="link link-hover">Academic Textbooks</p>
         <p className="link link-hover">Academic Guide Books</p>
         <p className="link link-hover">STEM Books</p>
