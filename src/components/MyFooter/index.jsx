@@ -3,7 +3,7 @@ import { Footer } from 'react-daisyui';
 
 const MyFooter = () => {
   return (
-    <Footer className="p-10 bg-neutral text-neutral-content" center>
+    <Footer className="p-10 bg-neutral text-neutral-content mt-4" center>
       <div>
         <img src="/favicon.png" width={60} />
         <p className="text-2xl my-3">PuranBoi Inc. Ltd.</p>
