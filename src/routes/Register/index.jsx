@@ -37,6 +37,8 @@ const Register = () => {
   const [showCurrentUserLoadingError, setShowCurrentUserLoadingError] =
     useState(true);
 
+  const [wantToBeSeller, setWantToBeSeller] = useState(false);
+
   const location = useLocation();
   const from = location.state?.from || '/';
 
@@ -112,6 +114,13 @@ const Register = () => {
 
     createUserWithEmailAndPassword(email, password)
       .then(user => {
+        localStorage.setItem(
+          'registrationRole',
+          JSON.stringify({
+            uid: user.user.uid,
+            askedRole: wantToBeSeller ? 'seller' : 'buyer',
+          })
+        );
         updateProfile({ photoURL, displayName: name }).then(() => {
           setProfileUpdated(true);
         });
@@ -214,6 +223,20 @@ const Register = () => {
                   className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
+            </div>
+
+            <div className="form-check mt-4">
+              <input
+                className="form-check-input h-4 w-4 border border-gray-300  bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                onChange={event => setWantToBeSeller(event.target.checked)}
+              />
+              <label
+                className="form-check-label inline-block text-gray-800"
+                htmlFor="flexCheckChecked"
+              >
+                I want to be a Seller.
+              </label>
             </div>
 
             <div className="flex items-center mt-4">

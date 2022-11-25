@@ -10,6 +10,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
     useAuthState(firebaseAuthInstance, {
       onUserChanged: async user => {
         console.log('Firebase User:', user);
+        const registrationRoleString = localStorage.getItem('registrationRole');
         // if (!user) {
         //   await fetch(`${import.meta.env.VITE_puranBoiServer}/user/sign-out`, {
         //     method: 'DELETE',
