@@ -17,11 +17,11 @@ const Banner = () => {
       >
         <div className="flex justify-center items-center h-full">
           <div className="text-white">
-            <h2 className="text-6xl mb-4 font-black">Puran Boi</h2>
-            <h4 className="text-xl mb-6">
+            <h2 className="text-6xl mb-4 font-black">PuranBoi</h2>
+            <h4 className="text-lg mb-6">
               They say, a book is a good friend.
               <br />
-              That makes an Old Book a Good Old Friend.
+              That makes an Old Book <br />a Good Old Friend.
             </h4>
           </div>
         </div>
