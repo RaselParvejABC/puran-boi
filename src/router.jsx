@@ -1,19 +1,22 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
-import AppLayout from "./layouts/AppLayout";
-import ErrorPage from "./components/ErrorPage";
-import Home from "./routes/Home";
-import Login from "./routes/Login";
-import Register from "./routes/Register";
-import Blog from "./routes/Blog";
-import Dashboard from "./routes/Dashboard";
-import AuthenticationDarowan from "./components/AuthenticationDarowan";
-import RoleDarowan from "./components/RoleDarowan";
-import AddProduct from "./routes/AddProduct";
+import AppLayout from './layouts/AppLayout';
+import ErrorPage from './components/ErrorPage';
+import Home from './routes/Home';
+import Login from './routes/Login';
+import Register from './routes/Register';
+import Blog from './routes/Blog';
+import Dashboard from './routes/Dashboard';
+import AuthenticationDarowan from './components/AuthenticationDarowan';
+import RoleDarowan from './components/RoleDarowan';
+import AddProduct from './routes/AddProduct';
+import MyProducts from './routes/MyProducts';
+import PurchaseRequests from './routes/PurchaseRequests';
+import MyBuyers from './routes/MyBuyers';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <AppLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -22,19 +25,19 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <Login />,
       },
       {
-        path: "/register",
+        path: '/register',
         element: <Register />,
       },
       {
-        path: "/blog",
+        path: '/blog',
         element: <Blog />,
       },
       {
-        path: "/dashboard",
+        path: '/dashboard',
         element: (
           <AuthenticationDarowan>
             <Dashboard />
@@ -50,15 +53,60 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "add-product",
+            path: 'add-product',
             element: (
               <AuthenticationDarowan>
-                {(getCurrentUserFirebaseUID) => (
+                {getCurrentUserFirebaseUID => (
                   <RoleDarowan
                     neededRole="seller"
                     getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
                   >
                     <AddProduct />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'my-products',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="seller"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <MyProducts />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'purchase-requests',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="seller"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <PurchaseRequests />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'my-buyers',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="seller"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <MyBuyers />
                   </RoleDarowan>
                 )}
               </AuthenticationDarowan>
