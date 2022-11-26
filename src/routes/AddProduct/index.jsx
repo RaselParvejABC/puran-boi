@@ -6,8 +6,8 @@ import postProductAPI from '../../api/postProductAPI';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
 import WaitDialog from '../../components/Dialogs/WaitDialog';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const showErrorMessage = error => {
   if (error) {
@@ -18,6 +18,7 @@ const showErrorMessage = error => {
 
 const AddProduct = () => {
   const { currentUser } = useContext(FirebaseAuthContext);
+  const navigate = useNavigate();
   const {
     isLoading,
     error,
@@ -37,10 +38,11 @@ const AddProduct = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: postProductAPI,
-    onSuccess: () => {
+    onSuccess: async () => {
       reset();
       toast('Your Product Added!');
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      await queryClient.invalidateQueries({ queryKey: ['products'] });
+      navigate('/dashboard/my-products');
     },
   });
 
@@ -271,7 +273,6 @@ const AddProduct = () => {
         </div>
       </form>
       {mutation.isLoading && <WaitDialog />}
-      <ToastContainer autoClose={5000} position="bottom-right" />
     </section>
   );
 };
