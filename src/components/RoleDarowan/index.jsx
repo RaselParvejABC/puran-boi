@@ -25,7 +25,7 @@ const RoleDarowan = ({ neededRole, getCurrentUserFirebaseUID, children }) => {
   }
 
   if (loading) {
-    return <MySpinnerDottedOnCenter size={70} />;
+    return <MySpinnerDottedOnCenter size={50} />;
   }
 
   if (userType !== neededRole) {
