@@ -1475,6 +1475,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -3040,6 +3047,7 @@ __metadata:
     react-hook-form: ^7.39.5
     react-icons: ^4.6.0
     react-router-dom: ^6.4.3
+    react-toastify: ^9.1.1
     spinners-react: ^1.0.7
     tailwindcss: ^3.2.4
     vite: ^3.2.3
@@ -3140,6 +3148,18 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: b89c0495c6837b1457915c08c5acc4eb7a2e9e3fae0420faf9bfc6311ecdfe78627cc1034c0e975bccd9aeeb70d1dcc5021322779dd3053d94c47e37339d77eb
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "react-toastify@npm:9.1.1"
+  dependencies:
+    clsx: ^1.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 2039255539961a9b4d77b2656f120b20abe46cb0c699a7f3c0af23b4ef669d9c4d24dae6b8f4954b5efd83edf6d6e23614a29e94e9ee0d2647741fba9ba2db85
   languageName: node
   linkType: hard
 

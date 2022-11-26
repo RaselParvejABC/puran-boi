@@ -6,10 +6,10 @@ const WaitDialog = () => {
   return (
     <div>
       <Modal open={true}>
-        <Modal.Header className="font-bold">Logging You Out!</Modal.Header>
+        <Modal.Header className="font-bold">Wait!</Modal.Header>
 
         <Modal.Body>
-          <MySpinnerRoundFilled size={30} />
+          <MySpinnerRoundFilled size={50} />
         </Modal.Body>
       </Modal>
     </div>
