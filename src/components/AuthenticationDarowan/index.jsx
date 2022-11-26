@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
-import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
-import MySpinnerDottedOnCenter from '../Spinners/MySpinnerDottedOnCenter';
-import InformDialog from '../../components/Dialogs/InformDialog';
+import React, { useContext } from "react";
+import { useLocation, Navigate } from "react-router-dom";
+import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContextProvider";
+import MySpinnerDottedOnCenter from "../Spinners/MySpinnerDottedOnCenter";
 
 const AuthenticationDarowan = ({ children }) => {
   const { currentUser, currentUserLoading, currentUserLoadingError } =
@@ -27,7 +26,7 @@ const AuthenticationDarowan = ({ children }) => {
     return <Navigate to="/login" state={{ from: from }} replace />;
   }
 
-  if (typeof children === 'function') {
+  if (typeof children === "function") {
     const getCurrentUserFirebaseUID = () => currentUser.uid;
     return <>{children(getCurrentUserFirebaseUID)}</>;
   }
