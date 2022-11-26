@@ -7,8 +7,9 @@ const useUserType = firebaseUID => {
     queryKey: ['users', 'type', firebaseUID],
     queryFn: async () => {
       const { data } = await axios(
-        `${import.meta.env.VITE_puranBoiServer}/users/:firebaseUID/type`
+        `${import.meta.env.VITE_puranBoiServer}/users/${firebaseUID}/type`
       );
+      console.log('Server userType', data);
       return data.userType;
     },
   });
