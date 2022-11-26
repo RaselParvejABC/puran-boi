@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import getCategoriesAPI from '../../api/getCategoriesAPI';
+import postProductAPI from '../../api/postProductAPI';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
+import WaitDialog from '../../components/Dialogs/WaitDialog';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const showErrorMessage = error => {
   if (error) {
@@ -26,12 +30,22 @@ const AddProduct = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors: formErrors },
   } = useForm();
 
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: postProductAPI,
+    onSuccess: () => {
+      reset();
+      toast('Your Product Added!');
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+  });
+
   const handleSubmission = async data => {
-    console.log('Form Data', data);
-    console.log('Image File', data.productImage[0]);
+    mutation.mutate(data);
   };
 
   if (error) {
@@ -106,6 +120,7 @@ const AddProduct = () => {
             })}
             className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             type="file"
+            accept="image/png, image/jpeg"
           />
           {showErrorMessage(formErrors.productImage)}
         </div>
@@ -255,6 +270,8 @@ const AddProduct = () => {
           <input type="submit" className="btn btn-primary btn-block" />
         </div>
       </form>
+      {mutation.isLoading && <WaitDialog />}
+      <ToastContainer autoClose={5000} />
     </section>
   );
 };
