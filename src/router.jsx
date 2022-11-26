@@ -9,6 +9,7 @@ import Blog from './routes/Blog';
 import Dashboard from './routes/Dashboard';
 import AuthenticationDarowan from './components/AuthenticationDarowan';
 import RoleDarowan from './components/RoleDarowan';
+import AddProduct from './routes/AddProduct';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,9 @@ const router = createBrowserRouter([
                   <RoleDarowan
                     neededRole="seller"
                     getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
-                  />
+                  >
+                    <AddProduct />
+                  </RoleDarowan>
                 )}
               </AuthenticationDarowan>
             ),

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUserType from '../../hooks/useUserType';
+import InformDialog from '../../components/Dialogs/InformDialog';
 import MySpinnerDottedOnCenter from '../Spinners/MySpinnerDottedOnCenter';
 
 const RoleDarowan = ({ neededRole, getCurrentUserFirebaseUID, children }) => {
@@ -37,6 +38,9 @@ const RoleDarowan = ({ neededRole, getCurrentUserFirebaseUID, children }) => {
       />
     );
   }
+
+  console.log('User Type', userType);
+  console.log('User Type Needed', neededRole);
 
   return <>{children}</>;
 };
