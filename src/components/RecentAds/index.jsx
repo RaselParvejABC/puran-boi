@@ -5,7 +5,7 @@ import MySpinnerDottedOnCenter from '../Spinners/MySpinnerDottedOnCenter';
 
 const RecentAds = () => {
   const { isLoading, error, data } = useQuery({
-    queryKey: ['ads', 'recent'],
+    queryKey: ['products', 'ads', 'recent'],
     queryFn: getRecentAdsAPI,
   });
 

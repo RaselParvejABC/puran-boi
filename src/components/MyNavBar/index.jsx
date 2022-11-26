@@ -73,6 +73,12 @@ const MyNavBar = () => {
             </Menu.Item>
 
             <Menu.Item>
+              <p className="bg-primary text-white my-auto py-1 lg:mx-5 rounded-md">
+                {currentUser.displayName}
+              </p>
+            </Menu.Item>
+
+            <Menu.Item>
               <Button
                 size="sm"
                 className="text-white border-none bg-red-600 my-auto py-1 rounded-md"

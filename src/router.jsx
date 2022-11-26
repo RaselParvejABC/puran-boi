@@ -6,6 +6,9 @@ import Home from './routes/Home';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import Blog from './routes/Blog';
+import Dashboard from './routes/Dashboard';
+import AuthenticationDarowan from './components/AuthenticationDarowan';
+import RoleDarowan from './components/RoleDarowan';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,29 @@ const router = createBrowserRouter([
       {
         path: '/blog',
         element: <Blog />,
+      },
+      {
+        path: '/dashboard',
+        element: (
+          <AuthenticationDarowan>
+            <Dashboard />
+          </AuthenticationDarowan>
+        ),
+        children: [
+          {
+            path: 'add-product',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="seller"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  />
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+        ],
       },
     ],
   },
