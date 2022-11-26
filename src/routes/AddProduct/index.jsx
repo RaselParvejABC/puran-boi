@@ -99,8 +99,8 @@ const AddProduct = () => {
                 message: 'Minimum 5 Characters!',
               },
               maxLength: {
-                value: 25,
-                message: '25 Characters at most!',
+                value: 100,
+                message: '100 Characters at most!',
               },
             })}
             type="text"
@@ -257,8 +257,8 @@ const AddProduct = () => {
             {...register('sellerLocation', {
               required: 'Your location is required.',
               maxLength: {
-                value: 60,
-                message: 'Not more than 60 characters are allowed.',
+                value: 100,
+                message: 'Not more than 100 characters are allowed.',
               },
             })}
             className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -271,7 +271,7 @@ const AddProduct = () => {
         </div>
       </form>
       {mutation.isLoading && <WaitDialog />}
-      <ToastContainer autoClose={5000} />
+      <ToastContainer autoClose={5000} position="bottom-right" />
     </section>
   );
 };
