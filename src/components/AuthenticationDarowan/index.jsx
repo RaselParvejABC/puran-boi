@@ -11,7 +11,7 @@ const AuthenticationDarowan = ({ children }) => {
   const location = useLocation();
 
   if (currentUserLoading) {
-    return <MySpinnerDottedOnCenter size={70} />;
+    return <MySpinnerDottedOnCenter size={50} />;
   }
 
   if (currentUserLoadingError) {

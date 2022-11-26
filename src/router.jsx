@@ -42,6 +42,14 @@ const router = createBrowserRouter([
         ),
         children: [
           {
+            index: true,
+            element: (
+              <p className="text-center text-2xl">
+                Select from Menu on Above or Left.
+              </p>
+            ),
+          },
+          {
             path: 'add-product',
             element: (
               <AuthenticationDarowan>
