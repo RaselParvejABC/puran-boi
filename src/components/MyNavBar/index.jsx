@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Navbar, Dropdown, Menu, Button } from 'react-daisyui';
 import { FaHamburger } from 'react-icons/fa';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
 import MySpinnerRoundFilled from '../Spinners/MySpinnerRoundFilled';
 import InformDialog from '../Dialogs/InformDialog';
@@ -13,6 +13,8 @@ const MyNavBar = () => {
     currentUserLoading,
     currentUserLoadingError,
   } = useContext(FirebaseAuthContext);
+
+  const location = useLocation();
 
   const [logOutError, setLogOutError] = useState(false);
 
@@ -50,6 +52,7 @@ const MyNavBar = () => {
           <Menu.Item>
             <Link
               to="/login"
+              state={{ from: location.pathname }}
               className="btn btn-primary text-white btn-sm my-auto py-1 rounded-md"
             >
               Log In

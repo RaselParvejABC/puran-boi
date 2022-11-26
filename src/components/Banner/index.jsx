@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
-    <div
+    <header
       className="p-12 text-center relative overflow-hidden bg-no-repeat bg-cover"
       style={{
         backgroundImage:
@@ -26,7 +26,7 @@ const Banner = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
