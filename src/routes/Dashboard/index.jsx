@@ -3,17 +3,25 @@ import { Link, Outlet } from 'react-router-dom';
 import { Menu } from 'react-daisyui';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
 import useUserType from '../../hooks/useUserType';
+import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
 
 const Dashboard = () => {
-  const { currentUser, currentUserLoading, currentUserLoadingError } =
-    useContext(FirebaseAuthContext);
+  const { currentUser } = useContext(FirebaseAuthContext);
 
   console.log('User Dashboard', currentUser);
 
   const { loading, error, userType } = useUserType(currentUser.uid);
 
-  if (!userType) {
-    return null;
+  if (loading) {
+    return <MySpinnerDottedOnCenter size={30} />;
+  }
+
+  if (error || !userType) {
+    return (
+      <p className="text-center text-warning text-2xl font-bold">
+        Please Reload the Page.
+      </p>
+    );
   }
 
   let dashboardMenu;
