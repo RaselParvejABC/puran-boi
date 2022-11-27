@@ -35,6 +35,7 @@ const PurchaseRequestForm = ({ onClose, currentUser, product }) => {
             query.queryKey[0]
           ),
       });
+      onClose();
     },
     onError: () => {
       setShowWait(false);
@@ -47,6 +48,10 @@ const PurchaseRequestForm = ({ onClose, currentUser, product }) => {
     data.status = 'submitted';
     purchaseRequestMutation.mutate(data);
   };
+
+  if (!currentUser) {
+    return null;
+  }
 
   return (
     <div className="container mx-auto">
