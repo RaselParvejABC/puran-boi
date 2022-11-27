@@ -73,7 +73,7 @@ const MyNavBar = () => {
             </Menu.Item>
 
             <Menu.Item>
-              <p className="bg-primary text-white my-auto py-1 lg:mx-5 rounded-md">
+              <p className="bg-primary text-white lg:my-auto py-1 lg:mx-5 rounded-md my-3">
                 {currentUser.displayName}
               </p>
             </Menu.Item>
