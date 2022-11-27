@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, Button, Tooltip } from 'react-daisyui';
+import { Card, Button, Tooltip, Alert } from 'react-daisyui';
 import { PhotoView } from 'react-photo-view';
 import { format } from 'date-fns';
 import { MdVerified } from 'react-icons/md';
@@ -54,9 +54,9 @@ const AdCard = ({ ad }) => {
             </>
           )}
           {!currentUser && (
-            <p className="text-red-600 font-bold text-center">
-              You are not Logged In.
-            </p>
+            <Alert status="info" className="font-bold">
+              <p className="text-center">You are not Logged In.</p>
+            </Alert>
           )}
         </Card.Actions>
       </Card.Body>
