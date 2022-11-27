@@ -17,8 +17,8 @@ const AdCard = ({ ad }) => {
   const [showWait, setShowWait] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const userAndThisProductQuery = useQuery({
-    queryKey: ['products', currentUser.uid, ad._id],
-    queryFn: () => getUserAndThisProductAPI(currentUser.uid, ad._id),
+    queryKey: ['products', currentUser?.uid ?? 'none', ad._id],
+    queryFn: () => getUserAndThisProductAPI(currentUser?.uid ?? 'none', ad._id),
   });
 
   const queryClient = useQueryClient();
@@ -122,7 +122,11 @@ const AdCard = ({ ad }) => {
       {showWait && <WaitDialog />}
       <ContainerModal isOpen={showForm} onClose={() => setShowForm(false)}>
         {onClose => (
-          <PurchaseRequestForm currentUser={currentUser} product={ad} />
+          <PurchaseRequestForm
+            currentUser={currentUser}
+            product={ad}
+            onClose={onClose}
+          />
         )}
       </ContainerModal>
     </Card>
