@@ -13,6 +13,7 @@ import AddProduct from './routes/AddProduct';
 import MyProducts from './routes/MyProducts';
 import PurchaseRequests from './routes/PurchaseRequests';
 import MyBuyers from './routes/MyBuyers';
+import AdsOnCategory from './routes/AdsOnCategory';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: '/blog',
         element: <Blog />,
+      },
+      {
+        path: '/ads/:categoryID',
+        element: (
+          <AuthenticationDarowan>
+            <AdsOnCategory />
+          </AuthenticationDarowan>
+        ),
       },
       {
         path: '/dashboard',
