@@ -13,6 +13,8 @@ const RecentAds = () => {
     console.error(error);
   }
 
+  console.log('Recent Ad', data);
+
   return (
     <section>
       {error && (
@@ -21,7 +23,16 @@ const RecentAds = () => {
         </p>
       )}
       {!error && isLoading && <MySpinnerDottedOnCenter size={50} />}
-      {!error && !isLoading && data.map(ad => <div key={ad}>ad</div>)}
+      {!error && !isLoading && data.length > 0 && (
+        <>
+          <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
+            Recent Ads
+          </h1>
+          {data.map(ad => (
+            <div key={add._id}>ad.productTitle</div>
+          ))}
+        </>
+      )}
     </section>
   );
 };

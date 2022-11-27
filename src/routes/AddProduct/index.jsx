@@ -51,11 +51,7 @@ const AddProduct = () => {
   };
 
   if (error) {
-    return (
-      <p className="text-center text-warning">
-        PuranBoi cannot Retrieve Product Categories.
-      </p>
-    );
+    return <p className="text-center text-warning">Please, reload the page.</p>;
   }
 
   if (isLoading) {
