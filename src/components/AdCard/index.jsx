@@ -1,12 +1,42 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Button, Tooltip, Alert } from 'react-daisyui';
 import { PhotoView } from 'react-photo-view';
 import { format } from 'date-fns';
 import { MdVerified } from 'react-icons/md';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import getUserAndThisProductAPI from '../../api/getUserAndThisProductAPI';
+import postReportAPI from '../../api/postReportAPI';
+import WaitDialog from '../Dialogs/WaitDialog';
+import { toast } from 'react-toastify';
 
 const AdCard = ({ ad }) => {
   const { currentUser } = useContext(FirebaseAuthContext);
+  const [showWait, setShowWait] = useState(false);
+  const userAndThisProductQuery = useQuery({
+    queryKey: ['products', currentUser.uid, ad._id],
+    queryFn: () => getUserAndThisProductAPI(currentUser.uid, ad._id),
+  });
+
+  const queryClient = useQueryClient();
+  const reportMutation = useMutation({
+    mutationFn: postReportAPI,
+    onMutate: () => {
+      setShowWait(true);
+    },
+    onSuccess: async () => {
+      setShowWait(false);
+      toast('Reported to Admin!');
+      await queryClient.invalidateQueries({
+        predicate: query => ['products', 'reports'].includes(query.queryKey[0]),
+      });
+    },
+    onError: () => {
+      setShowWait(false);
+      toast('Sorry! Error Submitting Report.');
+    },
+  });
+
   return (
     <Card compact className="border border-gray-700 p-0">
       <PhotoView src={ad.productImage}>
@@ -47,12 +77,36 @@ const AdCard = ({ ad }) => {
           )}
         </div>
         <Card.Actions className="justify-center lg:justify-between mt-4">
-          {currentUser && (
-            <>
-              <Button color="primary">Request to Purchase</Button>
-              <Button color="warning">Report to Admin</Button>
-            </>
-          )}
+          {currentUser &&
+            !userAndThisProductQuery.isLoading &&
+            !userAndThisProductQuery.error && (
+              <>
+                {!userAndThisProductQuery.data.requested ? (
+                  <Button color="primary">Request to Purchase</Button>
+                ) : (
+                  <Button className="bg-gray-500" disabled>
+                    Requested to Purchase
+                  </Button>
+                )}
+                {!userAndThisProductQuery.data.reported ? (
+                  <Button
+                    color="warning"
+                    onClick={() =>
+                      reportMutation.mutate({
+                        firebaseUID: currentUser.uid,
+                        productID: ad._id,
+                      })
+                    }
+                  >
+                    Report to Admin
+                  </Button>
+                ) : (
+                  <Button className="bg-gray-500" disabled>
+                    Reported to Admin
+                  </Button>
+                )}
+              </>
+            )}
           {!currentUser && (
             <Alert status="info" className="font-bold">
               <p className="text-center">You are not Logged In.</p>
@@ -60,6 +114,7 @@ const AdCard = ({ ad }) => {
           )}
         </Card.Actions>
       </Card.Body>
+      {showWait && <WaitDialog />}
     </Card>
   );
 };
