@@ -1621,6 +1621,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^2.29.3":
+  version: 2.29.3
+  resolution: "date-fns@npm:2.29.3"
+  checksum: e01cf5b62af04e05dfff921bb9c9933310ed0e1ae9a81eb8653452e64dc841acf7f6e01e1a5ae5644d0337e9a7f936175fd2cb6819dc122fdd9c5e86c56be484
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.3.3":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
@@ -3036,6 +3043,7 @@ __metadata:
     autoprefixer: ^10.4.13
     axios: ^1.2.0
     daisyui: ^2.42.0
+    date-fns: ^2.29.3
     email-validator: ^2.0.4
     firebase: ^9.14.0
     postcss: ^8.4.19
@@ -3046,6 +3054,7 @@ __metadata:
     react-firebase-hooks: ^5.1.1
     react-hook-form: ^7.39.5
     react-icons: ^4.6.0
+    react-photo-view: ^1.2.3
     react-router-dom: ^6.4.3
     react-toastify: ^9.1.1
     spinners-react: ^1.0.7
@@ -3117,6 +3126,16 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: a08375d4563e381e156d826a8d551dd26c1bf7c424a79139173bf4c8df71e884badd7d4f5fe9faa0d73d18ace265bcc89891b65fd8f808812b1011b612ebbc53
+  languageName: node
+  linkType: hard
+
+"react-photo-view@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "react-photo-view@npm:1.2.3"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 0ff8b4b9ff35acd2e756e11e221af2f9e30eb9f9bbec3ddab7f76fd1fd334a8e0222f24343f412e055daa7fa94de1e3f1f0dc1f81c9e6f249c0eece425af0717
   languageName: node
   linkType: hard
 

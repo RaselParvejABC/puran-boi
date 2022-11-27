@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import getRecentAdsAPI from '../../api/getRecentAdsAPI';
 import MySpinnerDottedOnCenter from '../Spinners/MySpinnerDottedOnCenter';
+import AdCard from '../AdCard';
 
 const RecentAds = () => {
   const { isLoading, error, data } = useQuery({
@@ -16,7 +17,7 @@ const RecentAds = () => {
   console.log('Recent Ad', data);
 
   return (
-    <section>
+    <section className="container mx-auto p-6">
       {error && (
         <p className="text-warning mx-auto text-xl my-8">
           Error while loading Recent Ads. Please, reload the page!
@@ -28,9 +29,11 @@ const RecentAds = () => {
           <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
             Recent Ads
           </h1>
-          {data.map(ad => (
-            <div key={add._id}>ad.productTitle</div>
-          ))}
+          <section className="grid lg:grid-cols-3 gap-8">
+            {data.map(ad => (
+              <AdCard key={ad._id} ad={ad}></AdCard>
+            ))}
+          </section>
         </>
       )}
     </section>
