@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import getAdsUnderCategoryAPI from '../../api/getAdsUnderCategoryAPI';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
 import AdCard from '../../components/AdCard';
-import { data } from 'autoprefixer';
 
 const AdsOnCategory = () => {
   const { categoryID } = useParams();
@@ -25,9 +24,6 @@ const AdsOnCategory = () => {
   if (isLoading) {
     return <MySpinnerDottedOnCenter size={70} />;
   }
-
-  // console.log(data);
-  // return;
 
   const { products } = data;
 
