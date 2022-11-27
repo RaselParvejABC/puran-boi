@@ -9,10 +9,13 @@ import getUserAndThisProductAPI from '../../api/getUserAndThisProductAPI';
 import postReportAPI from '../../api/postReportAPI';
 import WaitDialog from '../Dialogs/WaitDialog';
 import { toast } from 'react-toastify';
+import ContainerModal from '../Dialogs/ContainerModal';
+import PurchaseRequestForm from '../PurchaseRequestForm';
 
 const AdCard = ({ ad }) => {
   const { currentUser } = useContext(FirebaseAuthContext);
   const [showWait, setShowWait] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const userAndThisProductQuery = useQuery({
     queryKey: ['products', currentUser.uid, ad._id],
     queryFn: () => getUserAndThisProductAPI(currentUser.uid, ad._id),
@@ -82,9 +85,11 @@ const AdCard = ({ ad }) => {
             !userAndThisProductQuery.error && (
               <>
                 {!userAndThisProductQuery.data.requested ? (
-                  <Button color="primary">Request to Purchase</Button>
+                  <Button color="primary" onClick={() => setShowForm(true)}>
+                    Request to Purchase
+                  </Button>
                 ) : (
-                  <Button className="bg-gray-500" disabled>
+                  <Button className="bg-gray-500 text-black" disabled>
                     Requested to Purchase
                   </Button>
                 )}
@@ -101,7 +106,7 @@ const AdCard = ({ ad }) => {
                     Report to Admin
                   </Button>
                 ) : (
-                  <Button className="bg-gray-500" disabled>
+                  <Button className="bg-gray-500 text-black" disabled>
                     Reported to Admin
                   </Button>
                 )}
@@ -115,6 +120,11 @@ const AdCard = ({ ad }) => {
         </Card.Actions>
       </Card.Body>
       {showWait && <WaitDialog />}
+      <ContainerModal isOpen={showForm} onClose={() => setShowForm(false)}>
+        {onClose => (
+          <PurchaseRequestForm currentUser={currentUser} product={ad} />
+        )}
+      </ContainerModal>
     </Card>
   );
 };
