@@ -44,12 +44,18 @@ const MyProducts = () => {
           ),
       });
     },
+    onError: () => {
+      toast('Sorry! Error occurred while trying to delete.');
+    },
   });
   const advertiseMutation = useMutation({
     mutationFn: advertiseProductAPI,
     onSuccess: async () => {
       toast('Your Product Advertised!');
       await queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError: () => {
+      toast('Sorry! Error occurred while trying to advertise.');
     },
   });
 
