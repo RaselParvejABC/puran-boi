@@ -81,7 +81,7 @@ const Dashboard = () => {
   }
 
   return (
-    <section className="container p-8 mx-auto grid lg:grid-cols-5 gap-2">
+    <section className="container p-8 w-screen mx-0 grid lg:grid-cols-5 gap-2">
       <aside className="lg:col-span-1 mx-auto lg:ml-auto">
         {dashboardMenu}
       </aside>
