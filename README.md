@@ -8,6 +8,7 @@
 ## For Examiner
 
 > adminEmail: bat@man.com
+
 > adminPassword: 1475963
 
 ## Features
