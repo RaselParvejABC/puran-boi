@@ -15,6 +15,9 @@ import PurchaseRequests from './routes/PurchaseRequests';
 import MyBuyers from './routes/MyBuyers';
 import AdsOnCategory from './routes/AdsOnCategory';
 import MyPurchaseRequests from './routes/MyPurchaseRequests';
+import AllSellers from './routes/AllSellers';
+import AllBuyers from './routes/AllBuyers';
+import Reports from './routes/Reports';
 
 const router = createBrowserRouter([
   {
@@ -132,6 +135,52 @@ const router = createBrowserRouter([
                     getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
                   >
                     <MyPurchaseRequests />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          //Admin Routes Below
+          {
+            path: 'all-sellers',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="admin"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <AllSellers />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'all-buyers',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="admin"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <AllBuyers />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'reports',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="admin"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <Reports />
                   </RoleDarowan>
                 )}
               </AuthenticationDarowan>
