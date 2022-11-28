@@ -5,6 +5,11 @@
 > - https://puran-boi.web.app
 > - https://puran-boi.firebaseapp.com
 
+## For Examiner
+
+> adminEmail: bat@man.com
+> adminPassword: 1475963
+
 ## Features
 
 > - This is a P2P Old Books Selling-Buying Site.
