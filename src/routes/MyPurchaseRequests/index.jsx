@@ -4,7 +4,7 @@ import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider'
 import getMyPurchaseRequestsAPI from '../../api/getMyPurchaseRequestsAPI';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
 import { PhotoView } from 'react-photo-view';
-import { Table, ButtonGroup } from 'react-daisyui';
+import { Table, ButtonGroup, Button } from 'react-daisyui';
 
 const MyPurchaseRequests = () => {
   const { currentUser } = useContext(FirebaseAuthContext);
