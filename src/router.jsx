@@ -65,6 +65,7 @@ const router = createBrowserRouter([
               </p>
             ),
           },
+          //Seller Routes Below
           {
             path: 'add-product',
             element: (
@@ -125,8 +126,24 @@ const router = createBrowserRouter([
               </AuthenticationDarowan>
             ),
           },
+          //Buyer Routes below
           {
             path: 'my-purchase-requests',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="buyer"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <MyPurchaseRequests />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'payment/:stripeClientSecret/:purchaseRequestID',
             element: (
               <AuthenticationDarowan>
                 {getCurrentUserFirebaseUID => (

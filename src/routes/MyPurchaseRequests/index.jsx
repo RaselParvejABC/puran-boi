@@ -1,23 +1,50 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
 import getMyPurchaseRequestsAPI from '../../api/getMyPurchaseRequestsAPI';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
 import { PhotoView } from 'react-photo-view';
 import { Table, ButtonGroup, Button } from 'react-daisyui';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import WaitDialog from '../../components/Dialogs/WaitDialog';
+import { useNavigate } from 'react-router-dom';
 
 const MyPurchaseRequests = () => {
   const { currentUser } = useContext(FirebaseAuthContext);
+  const navigate = useNavigate();
+  const [arrangingPayment, setArrangingPayment] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['products', 'purchaseRequests'],
     queryFn: () => getMyPurchaseRequestsAPI(currentUser.uid),
   });
 
+  const handlePayment = async (amount, purchaseRequestID) => {
+    setArrangingPayment(true);
+    try {
+      const { data } = await axios.get(
+        `${
+          import.meta.env.VITE_puranBoiServer
+        }/purchase-requests/stripe-client-secret/${amount}`,
+        { withCredentials: true }
+      );
+      const { stripeClientSecret } = data;
+      console.log(stripeClientSecret);
+      navigate(`/dashboard/payment/${stripeClientSecret}/${purchaseRequestID}`);
+    } catch (err) {
+      console.error(err);
+      toast('Sorry, error proceeding to payment.');
+    } finally {
+      setArrangingPayment(false);
+    }
+  };
+
   if (error) {
     return (
       <p className="text-center text-warning">
-        PuranBoi cannot Retrieve Your Products. Please, reload the page.
+        PuranBoi cannot Retrieve Your Purchase Requests now. Please, reload the
+        page.
       </p>
     );
   }
@@ -38,8 +65,12 @@ const MyPurchaseRequests = () => {
       <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
         My Purchase Requests
       </h1>
-      <h1 className="text-center text-lg font-black text-info my-6 lg:mb-6">
+      <h1 className="text-center text-lg font-black my-6 lg:mb-6">
         Click on Product Image to Enlarge
+      </h1>
+      <h1 className="text-normal text-center my-6 lg:mb-6">
+        * You can proceed to pay only after the seller has accepted your
+        purchase request.
       </h1>
       <div className="overflow-x-scroll w-screen lg:w-full -mx-8 lg:mx-0">
         <Table zebra className="min-w-max mx-auto">
@@ -73,9 +104,9 @@ const MyPurchaseRequests = () => {
                         <Button
                           color="primary"
                           size="sm"
-                          onClick={() => advertiseMutation.mutate(_id)}
+                          onClick={() => handlePayment(priceInBDT, _id)}
                         >
-                          Pay
+                          Proceed to Pay
                         </Button>
                       )}
                     </ButtonGroup>
@@ -86,9 +117,7 @@ const MyPurchaseRequests = () => {
           </Table.Body>
         </Table>
       </div>
-      {/* {(deleteMutation.isLoading || advertiseMutation.isLoading) && (
-        <WaitDialog />
-      )} */}
+      {arrangingPayment && <WaitDialog />}
     </>
   );
 };
