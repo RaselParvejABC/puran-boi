@@ -18,6 +18,7 @@ import MyPurchaseRequests from './routes/MyPurchaseRequests';
 import AllSellers from './routes/AllSellers';
 import AllBuyers from './routes/AllBuyers';
 import Reports from './routes/Reports';
+import Payment from './routes/Payment';
 
 const router = createBrowserRouter([
   {
@@ -151,7 +152,7 @@ const router = createBrowserRouter([
                     neededRole="buyer"
                     getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
                   >
-                    <MyPurchaseRequests />
+                    <Payment />
                   </RoleDarowan>
                 )}
               </AuthenticationDarowan>
