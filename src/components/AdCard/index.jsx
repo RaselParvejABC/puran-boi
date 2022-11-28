@@ -82,7 +82,8 @@ const AdCard = ({ ad }) => {
         <Card.Actions className="justify-center lg:justify-between mt-4">
           {currentUser &&
             !userAndThisProductQuery.isLoading &&
-            !userAndThisProductQuery.error && (
+            !userAndThisProductQuery.error &&
+            userAndThisProductQuery.data.isBuyer && (
               <>
                 {!userAndThisProductQuery.data.requested ? (
                   <Button color="primary" onClick={() => setShowForm(true)}>

@@ -6,7 +6,6 @@ const getMyPurchaseRequestsAPI = async firebaseUID => {
       import.meta.env.VITE_puranBoiServer
     }/purchase-requests/from/${firebaseUID}`
   );
-  console.log('PR', data);
   return data;
 };
 
