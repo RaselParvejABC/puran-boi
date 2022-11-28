@@ -14,6 +14,7 @@ import MyProducts from './routes/MyProducts';
 import PurchaseRequests from './routes/PurchaseRequests';
 import MyBuyers from './routes/MyBuyers';
 import AdsOnCategory from './routes/AdsOnCategory';
+import MyPurchaseRequests from './routes/MyPurchaseRequests';
 
 const router = createBrowserRouter([
   {
@@ -116,6 +117,21 @@ const router = createBrowserRouter([
                     getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
                   >
                     <MyBuyers />
+                  </RoleDarowan>
+                )}
+              </AuthenticationDarowan>
+            ),
+          },
+          {
+            path: 'my-purchase-requests',
+            element: (
+              <AuthenticationDarowan>
+                {getCurrentUserFirebaseUID => (
+                  <RoleDarowan
+                    neededRole="buyer"
+                    getCurrentUserFirebaseUID={getCurrentUserFirebaseUID}
+                  >
+                    <MyPurchaseRequests />
                   </RoleDarowan>
                 )}
               </AuthenticationDarowan>

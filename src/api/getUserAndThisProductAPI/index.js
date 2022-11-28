@@ -6,7 +6,6 @@ const getUserAndThisProductAPI = async (firebaseUID, productID) => {
       import.meta.env.VITE_puranBoiServer
     }/users/${firebaseUID}/product/${productID}`
   );
-  console.log(data);
   return data;
 };
 

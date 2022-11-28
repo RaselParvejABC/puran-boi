@@ -71,8 +71,6 @@ const MyProducts = () => {
     return <MySpinnerDottedOnCenter size={50} />;
   }
 
-  console.log(myProducts);
-
   if (myProducts.length === 0) {
     return (
       <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
