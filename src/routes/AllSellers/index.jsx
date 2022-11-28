@@ -1,53 +1,55 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ButtonGroup, Table, Button } from 'react-daisyui';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContextProvider';
 import MySpinnerDottedOnCenter from '../../components/Spinners/MySpinnerDottedOnCenter';
 import { toast } from 'react-toastify';
-import getPurchaseRequestsToMeAPI from '../../api/getPurchaseRequestsToMeAPI';
-import acceptARequestAPI from '../../api/acceptARequestAPI';
-import rejectARequestAPI from '../../api/rejectARequestAPI';
+import getAllSellersAPI from '../../api/getAllSellersAPI';
+import verifyASellerAPI from '../../api/verifyASellerAPI';
+import deleteAUserAPI from '../../api/deleteAUserAPI';
 import WaitDialog from '../../components/Dialogs/WaitDialog';
 
 const AllSellers = () => {
-  const { currentUser } = useContext(FirebaseAuthContext);
   const { isLoading, error, data } = useQuery({
-    queryKey: ['products', 'purchaseRequests', currentUser.uid],
-    queryFn: () => getPurchaseRequestsToMeAPI(currentUser.uid),
+    queryKey: ['users'],
+    queryFn: getAllSellersAPI,
   });
 
   const queryClient = useQueryClient();
-  const acceptMutation = useMutation({
-    mutationFn: acceptARequestAPI,
+  const verifyMutation = useMutation({
+    mutationFn: _id => verifyASellerAPI(_id),
     onSuccess: async () => {
-      toast('Purchase Request Accepted');
+      toast('Seller Verified');
       await queryClient.invalidateQueries({
         predicate: query =>
-          ['products', 'purchaseRequests'].includes(query.queryKey[0]),
+          ['products', 'purchaseRequests', 'users', 'reports'].includes(
+            query.queryKey[0]
+          ),
       });
     },
     onError: () => {
-      toast('Sorry! Error occurred while trying to accept.');
+      toast('Sorry! Error occurred while trying to verify.');
     },
   });
-  const rejectMutation = useMutation({
-    mutationFn: rejectARequestAPI,
+  const deleteMutation = useMutation({
+    mutationFn: deleteAUserAPI,
     onSuccess: async () => {
-      toast('Purchase Request Rejected!');
+      toast('Seller Deleted!');
       await queryClient.invalidateQueries({
         predicate: query =>
-          ['products', 'purchaseRequests'].includes(query.queryKey[0]),
+          ['products', 'purchaseRequests', 'users', 'reports'].includes(
+            query.queryKey[0]
+          ),
       });
     },
     onError: () => {
-      toast('Sorry! Error while trying to reject.');
+      toast('Sorry! Error while trying to delete.');
     },
   });
 
   if (error) {
     return (
       <p className="text-center text-warning">
-        PuranBoi cannot Retrieve Your Products. Please, reload the page.
+        Cannot retrieve the sellers. Please, reload the page.
       </p>
     );
   }
@@ -59,85 +61,56 @@ const AllSellers = () => {
   if (data.length === 0) {
     return (
       <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
-        You have no purchase request now.
+        PuranBoi has no seller now.
       </h1>
     );
   }
   return (
     <>
       <h1 className="text-center text-3xl font-black text-primary my-6 lg:mb-6">
-        Purchase Requests for My Products
+        All Sellers
       </h1>
       <div className="overflow-x-scroll w-screen lg:w-full -mx-8 lg:mx-0">
         <Table zebra className="min-w-max mx-auto">
           <Table.Head>
             <span />
-            <span>Product Title</span>
-            <span>Price</span>
-            <span>Buyer Name</span>
-            <span>Buyer Phone</span>
-            <span>Buyer Proposed Location</span>
-            <span>Request Status</span>
+            <span>Name</span>
+            <span>Email</span>
             <span>Actions</span>
           </Table.Head>
 
           <Table.Body>
-            {data.map(
-              ({
-                _id,
-                status,
-                buyerPhone,
-                buyerProposedLocation,
-                productID,
-                product: { productTitle, priceInBDT, productPBStatus },
-                buyer: { name: buyerName },
-              }) => (
-                <Table.Row hover key={_id}>
-                  <span />
-                  <span>{productTitle}</span>
-                  <span className="block text-right">{priceInBDT}</span>
-                  <span>{buyerName}</span>
-                  <span>{buyerPhone}</span>
-                  <span>{buyerProposedLocation}</span>
-                  <span className="text-capitalize">{status}</span>
-                  <span>
-                    <ButtonGroup>
-                      {productPBStatus === 'advertising' && (
-                        <>
-                          <Button
-                            color="success"
-                            size="sm"
-                            onClick={() =>
-                              acceptMutation.mutate({
-                                purchaseRequestID: _id,
-                                productID: productID,
-                              })
-                            }
-                          >
-                            Accept
-                          </Button>
-                          <Button
-                            color="warning"
-                            size="sm"
-                            onClick={() =>
-                              rejectMutation.mutate({
-                                purchaseRequestID: _id,
-                              })
-                            }
-                          >
-                            Reject
-                          </Button>
-                        </>
-                      )}
-                    </ButtonGroup>
-                  </span>
-                </Table.Row>
-              )
-            )}
+            {data.map(({ _id, name, email, isVerifiedSeller }) => (
+              <Table.Row hover key={_id}>
+                <span />
+                <span>{name}</span>
+                <span>{email}</span>
+                <span>
+                  <ButtonGroup>
+                    {!isVerifiedSeller && (
+                      <Button
+                        color="success"
+                        size="sm"
+                        onClick={() => verifyMutation.mutate(_id)}
+                      >
+                        Verify
+                      </Button>
+                    )}
+                    <Button
+                      color="warning"
+                      size="sm"
+                      onClick={() => deleteMutation.mutate(_id)}
+                    >
+                      Delete
+                    </Button>
+                  </ButtonGroup>
+                </span>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </div>
-      {(acceptMutation.isLoading || rejectMutation.isLoading) && <WaitDialog />}
+      {(verifyMutation.isLoading || deleteMutation.isLoading) && <WaitDialog />}
     </>
   );
 };
