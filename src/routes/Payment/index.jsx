@@ -94,11 +94,11 @@ const Payment = () => {
   };
 
   return (
-    <div className="overflow-x-scroll w-screen mx-0 lg:w-full lg:mx-0">
+    <div className="overflow-x-scroll mx-0 lg:w-full">
       <h1 className="text-center text-3xl font-bold text-primary mb-8">
         Payment
       </h1>
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <form id="payment-form" onSubmit={handleSubmit} className="mx-auto">
         <CardElement
           id="card-element"
           options={cardStyle}
